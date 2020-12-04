@@ -22,8 +22,8 @@ public class GorskiApplication {
 	CommandLineRunner runner() {
 		return args -> {
 //            Save demo data after start
-			userRepository.save(new User("User", "user", "female"));
-			userRepository.save(new User("User2", "user2", "male"));
+			userRepository.save(new User("User", "$2y$12$Gsf7AIAc0xNnVCnzlVhePeSuFIgmC1I.jS0v7ERVQtkfBmjGYvZ7m", "female"));
+			userRepository.save(new User("User2", "$2y$12$cP0eQoLH.os1IxYFI/PIIupYhNJ3fpOyrYMIXZJ1rnuMyXbMX333W", "male"));
 		};
 
 	}
