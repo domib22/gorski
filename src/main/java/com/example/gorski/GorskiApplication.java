@@ -22,7 +22,9 @@ public class GorskiApplication {
 	CommandLineRunner runner() {
 		return args -> {
 //            Save demo data after start
-			userRepository.save(new User("User", "user", "male"));
+			userRepository.save(new User("User", "user", "female"));
+			userRepository.save(new User("User2", "user2", "male"));
 		};
+
 	}
 }
