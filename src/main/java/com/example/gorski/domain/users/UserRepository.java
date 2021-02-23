@@ -1,5 +1,6 @@
-package com.example.gorski.domain;
+package com.example.gorski.domain.users;
 
+import com.example.gorski.domain.users.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
