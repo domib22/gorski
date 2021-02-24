@@ -1,0 +1,14 @@
+insert into PICTURES (NAME_JPG) values ('softW');
+insert into PICTURES (NAME_JPG) values ('softM');
+insert into PICTURES (NAME_JPG) values ('softW2');
+insert into PICTURES (NAME_JPG) values ('softM2');
+insert into PICTURES (NAME_JPG) values ('pantsM');
+insert into PICTURES (NAME_JPG) values ('pantsM2');
+insert into PICTURES (NAME_JPG) values ('pantsW');
+insert into PICTURES (NAME_JPG) values ('pantsW2');
+insert into PICTURES (NAME_JPG) values ('fleeceW1');
+insert into PICTURES (NAME_JPG) values ('fleeceW2');
+insert into PICTURES (NAME_JPG) values ('fleeceM1');
+insert into PICTURES (NAME_JPG) values ('fleeceM2');
+insert into PICTURES (NAME_JPG) values ('fleeceW3');
+insert into PICTURES (NAME_JPG) values ('fleeceM3');

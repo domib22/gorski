@@ -3,42 +3,34 @@ package com.example.gorski.controllers;
 import com.example.gorski.domain.users.User;
 import com.example.gorski.domain.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/app")
 public class UsersController {
-
     private final UserRepository userRepository;
 
     @Autowired
-    public UsersController(UserRepository userRepository) { this.userRepository = userRepository; }
+    public UsersController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/users")
-    public Iterable<User> getUsers() { return userRepository.findAll(); }
-
-    @PostMapping("/users")
-    public ResponseEntity addUser(@RequestBody User user) {
-        Optional<User> userFromDb = userRepository.findByUserName(user.getUserName());
-
-        if (!userFromDb.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
-        }
-
-        User savedUser = userRepository.save(user);
-        return ResponseEntity.ok(savedUser);
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public Iterable<User> getUsers() {
+        return userRepository.findAll();
     }
 
     @PutMapping("/users")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     void updateUserData(@RequestBody User user) {
         userRepository.save(user);
     }
 
     @DeleteMapping("/users/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     void deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
     }
