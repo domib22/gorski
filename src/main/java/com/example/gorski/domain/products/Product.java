@@ -28,8 +28,7 @@ public class Product extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private Season season;
 
-    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinColumn(name = "categories_id")
+    @Enumerated(EnumType.STRING)
     private ProductCategory category;
 
     @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
@@ -41,6 +40,6 @@ public class Product extends AbstractEntity {
     private Link link;
 
     @OneToMany(mappedBy = "product", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
-    private List<Review> reviews = new ArrayList<Review>();
+    private List<Review> reviews = new ArrayList<>();
 
 }
