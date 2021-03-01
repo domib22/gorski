@@ -31,15 +31,19 @@ public class Product extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private ProductCategory category;
 
-    @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
-    @JoinColumn(name = "pictures_id")
-    private Picture picture;
-
-    @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
-    @JoinColumn(name = "links_id")
-    private Link link;
+    private String pictureName;
+    private String link;
 
     @OneToMany(mappedBy = "product", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
     private List<Review> reviews = new ArrayList<>();
 
+    public Product(String name, BigDecimal price, ProductGender productGender, Season season, ProductCategory category, String pictureName, String link) {
+        this.name = name;
+        this.price = price;
+        this.productGender = productGender;
+        this.season = season;
+        this.category = category;
+        this.pictureName = pictureName;
+        this.link = link;
+    }
 }

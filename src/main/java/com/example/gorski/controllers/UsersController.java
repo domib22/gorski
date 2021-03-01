@@ -1,10 +1,10 @@
 package com.example.gorski.controllers;
 
-import com.example.gorski.domain.users.User;
-import com.example.gorski.domain.users.UserRepository;
+import com.example.gorski.domain.users.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
