@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -57,7 +58,10 @@ public class AuthController {
     @PostMapping("/registration")
     public ResponseEntity<?> registerUser(@Valid @RequestBody Registration registrationRequest) {
         if (userRepository.existsByUserName(registrationRequest.getUsername())) {
-            return new ResponseEntity<>(new Message("This username is already exist!"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Message("This username is already exist!"), HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        if (registrationRequest.getUsername().isBlank() || registrationRequest.getPassword().isBlank()) {
+            return new ResponseEntity<>(new Message("Not all required data!"), HttpStatus.BAD_REQUEST);
         }
 
         User user = new User(registrationRequest.getUsername(), encoder.encode(registrationRequest.getPassword()),
