@@ -13,11 +13,13 @@ import java.util.Set;
 
 public class Registration {
     @NotBlank
-    @Size(min = 3, max = 30)
+    @Size(min = 4, max = 30)
     private String username;
+
     @NotBlank
     @Size(min = 6, max = 30)
     private String password;
+
     private UserGender userGender;
     private Set<String> role;
 }

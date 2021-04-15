@@ -2,22 +2,13 @@ package com.example.gorski.controllers;
 
 import com.example.gorski.domain.products.Product;
 import com.example.gorski.domain.products.ProductRepository;
-import com.example.gorski.domain.users.Role;
-import com.example.gorski.domain.users.RoleName;
-import com.example.gorski.domain.users.User;
 import com.example.gorski.messages.request.ProductAdd;
-import com.example.gorski.messages.request.Registration;
-import com.example.gorski.messages.response.Message;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
