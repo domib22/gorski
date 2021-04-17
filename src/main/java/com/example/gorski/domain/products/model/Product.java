@@ -1,4 +1,4 @@
-package com.example.gorski.domain.products;
+package com.example.gorski.domain.products.model;
 
 import com.example.gorski.domain.AbstractEntity;
 import lombok.AllArgsConstructor;
@@ -22,22 +22,21 @@ public class Product extends AbstractEntity {
     private String name;
     private BigDecimal price;
 
-    @Enumerated(EnumType.STRING)
-    private ProductGender productGender;
+    @Column(columnDefinition = "enum('UNISEX','MALE','FEMALE')")
+    private String productGender;
 
-    @Enumerated(EnumType.STRING)
-    private Season season;
+    @Column(columnDefinition = "enum('YEAR_ROUND','WINTER','SUMMER','SPRING_AUTUMN')")
+    private String season;
 
-    @Enumerated(EnumType.STRING)
-    private ProductCategory category;
+    private String category;
 
     private String pictureName;
     private String link;
 
-    @OneToMany(mappedBy = "product", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Review> reviews = new ArrayList<>();
 
-    public Product(String name, BigDecimal price, ProductGender productGender, Season season, ProductCategory category, String pictureName, String link) {
+    public Product(String name, BigDecimal price, String productGender, String season, String category, String pictureName, String link) {
         this.name = name;
         this.price = price;
         this.productGender = productGender;

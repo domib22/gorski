@@ -1,4 +1,4 @@
-package com.example.gorski.domain.users;
+package com.example.gorski.domain.users.model;
 
 public enum UserGender {
     WOMAN,

@@ -1,4 +1,4 @@
-package com.example.gorski.domain.users;
+package com.example.gorski.domain.users.model;
 
 import com.example.gorski.domain.AbstractEntity;
 import lombok.AllArgsConstructor;

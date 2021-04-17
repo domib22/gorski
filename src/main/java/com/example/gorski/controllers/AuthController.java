@@ -1,6 +1,10 @@
 package com.example.gorski.controllers;
 
-import com.example.gorski.domain.users.*;
+import com.example.gorski.domain.users.UserRepository;
+import com.example.gorski.domain.users.RoleRepository;
+import com.example.gorski.domain.users.model.Role;
+import com.example.gorski.domain.users.model.RoleName;
+import com.example.gorski.domain.users.model.User;
 import com.example.gorski.messages.request.Login;
 import com.example.gorski.messages.request.Registration;
 import com.example.gorski.messages.response.JWTResponse;

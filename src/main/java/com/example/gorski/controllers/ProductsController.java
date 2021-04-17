@@ -1,20 +1,25 @@
 package com.example.gorski.controllers;
 
-import com.example.gorski.domain.products.Product;
+import com.example.gorski.domain.products.model.Product;
+import com.example.gorski.domain.products.search.ProductPredicatesBuilder;
 import com.example.gorski.domain.products.ProductRepository;
 import com.example.gorski.messages.request.ProductAdd;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/app")
 public class ProductsController {
-    private final ProductRepository productRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     @Autowired
     public ProductsController(ProductRepository productRepository) {
@@ -22,9 +27,22 @@ public class ProductsController {
     }
 
     @GetMapping("/products")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public Iterable<Product> getProducts() {
-        return productRepository.findAll();
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER')")
+    @ResponseBody
+    public Iterable<Product> searchProducts(@RequestParam(value = "search") String search) {
+        if(search.isBlank()) {
+            return productRepository.findAll();
+        }
+
+        ProductPredicatesBuilder builder = new ProductPredicatesBuilder();
+
+        Pattern pattern = Pattern.compile("(\\w+?)([:<>])(\\w+?),");
+        Matcher matcher = pattern.matcher(search + ",");
+        while (matcher.find()) {
+            builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
+        }
+        BooleanExpression exp = builder.build();
+        return productRepository.findAll(exp);
     }
 
     @PostMapping("/products")

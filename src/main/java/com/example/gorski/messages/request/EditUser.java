@@ -1,6 +1,6 @@
 package com.example.gorski.messages.request;
 
-import com.example.gorski.domain.users.UserGender;
+import com.example.gorski.domain.users.model.UserGender;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,7 +1,7 @@
 package com.example.gorski.services;
 
-import com.example.gorski.domain.users.User;
-import com.example.gorski.domain.users.UserGender;
+import com.example.gorski.domain.users.model.User;
+import com.example.gorski.domain.users.model.UserGender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;

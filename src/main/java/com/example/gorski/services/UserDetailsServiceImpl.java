@@ -1,6 +1,6 @@
 package com.example.gorski.services;
 
-import com.example.gorski.domain.users.User;
+import com.example.gorski.domain.users.model.User;
 import com.example.gorski.domain.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

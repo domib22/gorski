@@ -1,6 +1,7 @@
 package com.example.gorski.controllers;
 
 import com.example.gorski.domain.users.*;
+import com.example.gorski.domain.users.model.User;
 import com.example.gorski.messages.request.EditUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
