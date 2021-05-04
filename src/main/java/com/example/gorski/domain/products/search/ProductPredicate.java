@@ -33,8 +33,9 @@ public class ProductPredicate {
         else {
             StringPath path = entityPath.getString(criteria.getKey());
             if (criteria.getOperation().equalsIgnoreCase(":")) {
-                return path.containsIgnoreCase(criteria.getValue().toString());
+                return path.equalsIgnoreCase(criteria.getValue().toString());
             }
+
         }
         return null;
     }
