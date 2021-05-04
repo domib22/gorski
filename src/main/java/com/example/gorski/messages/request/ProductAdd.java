@@ -14,4 +14,5 @@ public class ProductAdd {
     private String category;
     private String pictureName;
     private String link;
+    private String description;
 }

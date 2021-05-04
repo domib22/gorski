@@ -32,11 +32,12 @@ public class Product extends AbstractEntity {
 
     private String pictureName;
     private String link;
+    private String description;
 
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Review> reviews = new ArrayList<>();
 
-    public Product(String name, BigDecimal price, String productGender, String season, String category, String pictureName, String link) {
+    public Product(String name, BigDecimal price, String productGender, String season, String category, String pictureName, String link, String description) {
         this.name = name;
         this.price = price;
         this.productGender = productGender;
@@ -44,5 +45,6 @@ public class Product extends AbstractEntity {
         this.category = category;
         this.pictureName = pictureName;
         this.link = link;
+        this.description = description;
     }
 }
