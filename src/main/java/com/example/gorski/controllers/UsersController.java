@@ -83,4 +83,18 @@ public class UsersController {
         userRepository.deleteById(id);
     }
 
+    @DeleteMapping("/users")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    void deleteOwnedProduct(String username, Long idProduct) {
+        User user = userRepository.findByUserName(username);
+        Product product = productRepository.getOne(idProduct);
+        Set<Product> ownedProducts = user.getOwnedProducts();
+
+        if(ownedProducts.contains(product)) {
+            ownedProducts.remove(product);
+            user.setOwnedProducts(ownedProducts);
+            userRepository.save(user);
+        }
+    }
+
 }
