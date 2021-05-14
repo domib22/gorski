@@ -28,8 +28,10 @@ public class Product extends AbstractEntity {
     @Column(columnDefinition = "enum('YEAR_ROUND','WINTER','SUMMER','SPRING_AUTUMN')")
     private String season;
 
+    @Column(length=40)
     private String category;
 
+    @Column(length=40)
     private String pictureName;
     private String link;
     private String description;

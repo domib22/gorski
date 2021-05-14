@@ -19,10 +19,12 @@ import java.util.Set;
 @Table(name = "USERS")
 public class User extends AbstractEntity {
 
+    @Column(unique=true, length=40)
     private String userName;
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "enum('WOMAN', 'MAN')")
     private UserGender userGender;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -36,6 +38,5 @@ public class User extends AbstractEntity {
         this.password = password;
         this.userGender = userGender;
     }
-
 
 }

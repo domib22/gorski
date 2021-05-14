@@ -21,6 +21,7 @@ public class Review extends AbstractEntity {
 
     private Integer starsAmount;
     private String opinion;
+    @Column(length=40)
     private String userName;
 
     @JsonIgnore

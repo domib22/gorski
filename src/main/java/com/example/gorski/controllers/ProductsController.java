@@ -59,13 +59,6 @@ public class ProductsController {
         return product.getReviews();
     }
 
-    @GetMapping("/products/reviews")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER')")
-    @ResponseBody
-    public Iterable<Review> getUserReviews(String username) {
-        return reviewRepository.findByUserName(username);
-    }
-
     @PostMapping("/products/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER')")
     @ResponseBody
