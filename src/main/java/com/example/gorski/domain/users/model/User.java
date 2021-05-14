@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -40,7 +38,7 @@ public class User extends AbstractEntity {
     @JoinTable(name = "user_products",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Product> ownedProducts = new ArrayList<>();
+    private Set<Product> ownedProducts = new HashSet<>();
 
     public User(String userName, String password, UserGender userGender) {
         this.userName = userName;

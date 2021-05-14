@@ -13,7 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Set;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -41,7 +41,7 @@ public class UsersController {
 
     @GetMapping("/users/ownedProducts")
     @ResponseBody
-    public List<Product> getUserOwnedProducts(String username) {
+    public Iterable<Product> getUserOwnedProducts(String username) {
             User user = userRepository.findByUserName(username);
 
             return user.getOwnedProducts();
@@ -51,7 +51,7 @@ public class UsersController {
     public ResponseEntity<?> addUserOwnedProduct(String username, Long idProduct) {
         User user = userRepository.findByUserName(username);
         Product product = productRepository.getOne(idProduct);
-        List<Product> ownedProducts = user.getOwnedProducts();
+        Set<Product> ownedProducts = user.getOwnedProducts();
 
         if(ownedProducts.contains(product)) {
             return new ResponseEntity<>(new Message("The product is already included"), HttpStatus.UNPROCESSABLE_ENTITY);
