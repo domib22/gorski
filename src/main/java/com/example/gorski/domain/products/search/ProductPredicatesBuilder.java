@@ -9,23 +9,38 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ProductPredicatesBuilder {
-    private final List<SearchCriteria> params;
+    private final List<SearchCriteria> paramsAND;
+    private final List<SearchCriteria> paramsOR;
 
     public ProductPredicatesBuilder() {
-        params = new ArrayList<>();
+        paramsAND = new ArrayList<>();
+        paramsOR = new ArrayList<>();
     }
 
     public ProductPredicatesBuilder with(final String key, final String operation, final Object value) {
-        params.add(new SearchCriteria(key, operation, value));
+        for (SearchCriteria searchCriteria : paramsAND) {
+            if (key.equals(searchCriteria.getKey())){
+                paramsOR.add(new SearchCriteria(key, operation, value));
+                paramsOR.add(searchCriteria);
+                paramsAND.remove(searchCriteria);
+                return this;
+            }
+        }
+        paramsAND.add(new SearchCriteria(key, operation, value));
         return this;
     }
 
     public BooleanExpression build() {
-        if (params.size() == 0) {
+        if (paramsAND.size() == 0 && paramsOR.size() == 0) {
             return null;
         }
 
-        final List<BooleanExpression> predicates = params.stream().map(param -> {
+        final List<BooleanExpression> predicates = paramsAND.stream().map(param -> {
+            ProductPredicate predicate = new ProductPredicate(param);
+            return predicate.getPredicate();
+        }).filter(Objects::nonNull).collect(Collectors.toList());
+
+        final List<BooleanExpression> predicatesOR = paramsOR.stream().map(param -> {
             ProductPredicate predicate = new ProductPredicate(param);
             return predicate.getPredicate();
         }).filter(Objects::nonNull).collect(Collectors.toList());
@@ -34,6 +49,14 @@ public class ProductPredicatesBuilder {
         for (BooleanExpression predicate : predicates) {
             result = result.and(predicate);
         }
+        if (paramsOR.size() != 0) {
+            int counter = 0;
+            do {
+                result = result.andAnyOf(predicatesOR.get(counter), predicatesOR.get(counter+1));
+                counter+=2;
+            } while(paramsOR.size() > counter);
+        }
+
         return result;
     }
 
