@@ -9,10 +9,12 @@ import com.example.gorski.messages.request.ProductAdd;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ValidationException;
 import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,7 +35,6 @@ public class ProductsController {
     }
 
     @GetMapping("/products")
-    @ResponseBody
     public Iterable<Product> searchProducts(@RequestParam(value = "search") String search) {
         if(search.isBlank()) {
             return productRepository.findAll();
@@ -51,7 +52,6 @@ public class ProductsController {
     }
 
     @GetMapping("/products/{id}")
-    @ResponseBody
     public Iterable<Review> getProductReviews(@PathVariable Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException("Product with id=" + id + " not found"));
@@ -61,7 +61,6 @@ public class ProductsController {
 
     @PostMapping("/products/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER')")
-    @ResponseBody
     void addReview(@PathVariable Long id, Integer stars, String opinion, String userName) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException("Product with id=" + id + " not found"));
@@ -72,11 +71,16 @@ public class ProductsController {
 
     @PostMapping("/products")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    void addProduct(@RequestBody ProductAdd addRequest) {
+    public ResponseEntity<?> addProduct(@RequestBody ProductAdd addRequest) {
         BigDecimal properPrice = new BigDecimal(addRequest.getPrice());
 
-        Product product = new Product(addRequest.getName(), properPrice, addRequest.getProductGender(), addRequest.getSeason(), addRequest.getCategory(), addRequest.getPictureName(), addRequest.getLink(), addRequest.getDescription());
-        productRepository.save(product);
+        try {
+            Product product = new Product(addRequest.getName(), properPrice, addRequest.getProductGender(), addRequest.getSeason(), addRequest.getCategory(), addRequest.getPictureName(), addRequest.getLink(), addRequest.getDescription());
+            productRepository.save(product);
+            return ResponseEntity.ok(product);
+        } catch (ValidationException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PutMapping("/products")

@@ -13,8 +13,8 @@ First of all, this project is created to learn how **REST API** works, and also 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=
 
-##### H2 database (/h2-console):
-![spring_initializer](./images/h2.png)
+##### Example test (search products) with Postman:
+![spring_initializer](./images/searchTest.png)
 
 ##### Example HTTP requests with Postman:
 ![spring_initializer](./images/login_admin.png)
